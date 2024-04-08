@@ -56,21 +56,21 @@ function getOtherTopicsInfo(data) {
     otherTopicsInfo += `</ul>`;
     return otherTopicsInfo;
 }
-fetch(`./data.json`)
-    .then((response) => {
-        if (!response.ok) {
+fetch(`./data.json`) // fetching the data.json file
+    .then((response) => { // If the computer gets the file successfully, this part of the code checks if everything is okay with the file. If it's not okay (ie: if the file doesn't exist), it will stop and show an error message
+        if (!response.ok) { // if the response fails then using throw new Error displays the error
             throw new Error(`There is a HTTP ERROR!!!! status: ${response.status}`);
         }
-        return response.json();
+        return response.json(); // Convert the response to a JSON object
     })
-    .then((data) => {
-        console.log(data); 
+    .then((data) => { // If everything is okay, this part of the code reads the file's data and displays it in the console
+        console.log(data); // displays data.json to console
 
-        // Display only the raw mental health information
+        // Displays mental health information to console
         const rawMentalHealthData = data.mental_health_information;
         console.log(rawMentalHealthData);
 
-        // Call the functions to get the display information
+        // Call the functions and make them const(thought const would be better than let or var) to get the display information
         const dspMindfulnessInfo = getMindfulnessInfo(data);
         const dspYogaInfo = getYogaInfo(data);
         const dspOtherTopicsInfo = getOtherTopicsInfo(data);
@@ -85,5 +85,5 @@ fetch(`./data.json`)
         document.getElementById(`otherTopicsInfo`).innerHTML = dspOtherTopicsInfo;
     })
     .catch((error) => {
-        console.log(`Error reading the JSON file:`, error);
+        console.log(`Error reading the JSON file:`, error); // gets called if there is an error reading the json file. There isn't an error. I checked!
     })
